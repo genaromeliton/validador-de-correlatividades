@@ -1,27 +1,28 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-abstract class AbstractList
-abstract AbstractCollection
-interface List
-interface Collection
-
-List <|-- AbstractList
-Collection <|-- AbstractCollection
-
-Collection <|- List
-AbstractCollection <|- AbstractList
-AbstractList <|-- ArrayList
-
-class ArrayList {
-Object[] elementData
-size()
+class Inscripcion {
+    - materias: Set<Materia>
+    - alumno: Alumno
+    + aprobada(): Boolean
 }
 
-enum TimeUnit {
-DAYS
-HOURS
-MINUTES
+class Alumno {
+    - materiasAprobadas: Set<Materia>
+    - nombre: String
+    + estaAprobada(Materia materia): Boolean
 }
+
+class Materia {
+    - codigo: Integer
+    - nombre: String
+    - correlativas: Set<Materia>
+    + verificarCorrelativas(Alumno alumno): Boolean
+}
+
+Materia --> "*"Materia
+Inscripcion --> "*"Materia
+Inscripcion --* Alumno
+Alumno --> "*"Materia
 
 @enduml
